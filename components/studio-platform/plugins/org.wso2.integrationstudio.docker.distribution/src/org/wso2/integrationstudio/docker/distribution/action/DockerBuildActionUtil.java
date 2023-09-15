@@ -382,10 +382,15 @@ public class DockerBuildActionUtil {
             XPath xPathConfigMapPlugin = XPathFactory.newInstance().newXPath();
             Node configMapPluginNode = (Node) xPathConfigMapPlugin
                     .compile(DockerProjectConstants.CONFIGMAP_PLUGIN_XPATH).evaluate(doc, XPathConstants.NODE);
+            XPath xPathAntrunPlugin = XPathFactory.newInstance().newXPath();
+            Node antrunPluginNode = (Node) xPathConfigMapPlugin
+                    .compile(DockerProjectConstants.ANTRUN_PLUGIN_XPATH).evaluate(doc, XPathConstants.NODE);
             if (isConfigMapEnabaled) {
-                configMapPluginNode.setTextContent("package");
+                configMapPluginNode.setTextContent("generate-resources");
+                antrunPluginNode.setTextContent("process-resources");
             } else {
                 configMapPluginNode.setTextContent("none");
+                antrunPluginNode.setTextContent("none");
                 getBaseImageInDockerfileWhenDisableConfigMapper(pomIFile);
             }
 

@@ -368,16 +368,13 @@ public class DockerHubLoginPage extends WizardPage {
             
             //checks pom is an old project or not
             //it checks buildArg parameter is there in docker plugin to verify whether this pom is a new one or not
-            XPathExpression xpBuildArgs = XPathFactory.newInstance().newXPath().compile(DockerProjectConstants.DOCKER_SPOTIFY_PLUGIN_BUILD_ARG);
+            XPathExpression xpBuildArgs = XPathFactory.newInstance().newXPath().compile(DockerProjectConstants.DOCKER_MAVEN_PLUGIN_BUILD_ARG);
             if (xpBuildArgs.evaluate(doc).isEmpty()) {
                 
-                //Read target repository name and the tag from the pom spotify plugin tags
+                //Read target repository name and the tag from the pom docker plugin tags
                 XPathExpression xpRepo = XPathFactory.newInstance().newXPath().compile(DockerProjectConstants.TARGET_REPOSITORY_XPATH_OLD);
                 repository = xpRepo.evaluate(doc);
                 dockerImageName += repository;
-                
-                XPathExpression xpTag = XPathFactory.newInstance().newXPath().compile(DockerProjectConstants.TARGET_TAG_XPATH_OLD);
-                dockerImageName += ":" + xpTag.evaluate(doc);
             } else {
                 //Read target repository name and the tag from the pom properties tags
                 XPathExpression xpRepo = XPathFactory.newInstance().newXPath().compile(DockerProjectConstants.TARGET_REPOSITORY_XPATH);

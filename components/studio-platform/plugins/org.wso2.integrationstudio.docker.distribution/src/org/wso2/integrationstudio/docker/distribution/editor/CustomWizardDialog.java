@@ -26,16 +26,31 @@ import org.eclipse.swt.widgets.Shell;
  * Class responsible for creating custom wizard dialog for adding elements.
  */
 public class CustomWizardDialog extends WizardDialog {
-    private final String PUSH_BUTTON = "Push Image";
+	private final String BUILD_BUTTON = "Build Image";
+	private final String PUSH_BUTTON = "Push Image";
+	private final String BUILD_PUSH_BUTTON = "Build && Push";
 
-    public CustomWizardDialog(Shell parentShell, IWizard newWizard) {
-        super(parentShell, newWizard);
-    }
+	private int buttonType;
 
-    @Override
-    public void createButtonsForButtonBar(Composite parent) {
-        super.createButtonsForButtonBar(parent);
-        Button finishButton = getButton(IDialogConstants.FINISH_ID);
-        finishButton.setText(PUSH_BUTTON);
-    }
+	public CustomWizardDialog(Shell parentShell, IWizard newWizard, int type) {
+		super(parentShell, newWizard);
+		this.buttonType = type;
+	}
+
+	@Override
+	public void createButtonsForButtonBar(Composite parent) {
+		super.createButtonsForButtonBar(parent);
+		Button finishButton = getButton(IDialogConstants.FINISH_ID);
+		finishButton.setText(getButtonText(buttonType));
+	}
+
+	private String getButtonText(int type) {
+		if (buttonType == 0) {
+			return BUILD_BUTTON;
+		} else if (buttonType == 1) {
+			return PUSH_BUTTON;
+		} else {
+			return BUILD_PUSH_BUTTON;
+		}
+	}
 }

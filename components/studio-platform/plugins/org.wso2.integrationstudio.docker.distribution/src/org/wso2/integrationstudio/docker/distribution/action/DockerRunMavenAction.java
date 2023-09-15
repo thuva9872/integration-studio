@@ -110,7 +110,7 @@ public class DockerRunMavenAction implements IActionDelegate, IExecutableExtensi
 
             // it checks buildArg parameter is there in docker plugin to verify whether this pom is a new one or not
             XPathExpression xpBuildArgs = XPathFactory.newInstance().newXPath()
-                    .compile(DockerProjectConstants.DOCKER_SPOTIFY_PLUGIN_BUILD_ARG);
+                    .compile(DockerProjectConstants.DOCKER_MAVEN_PLUGIN_BUILD_ARG);
             if (xpBuildArgs.evaluate(doc).isEmpty()) {
                 isThisOldContainerProject = true;
             }
@@ -140,7 +140,7 @@ public class DockerRunMavenAction implements IActionDelegate, IExecutableExtensi
             DockerHubLoginWizard wizard = new DockerHubLoginWizard(newConfiguration, pomIFile);
             IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
             wizard.init(PlatformUI.getWorkbench(), null);
-            CustomWizardDialog headerWizardDialog = new CustomWizardDialog(window.getShell(), wizard);
+            CustomWizardDialog headerWizardDialog = new CustomWizardDialog(window.getShell(), wizard, 1);
             headerWizardDialog.setHelpAvailable(false);
             headerWizardDialog.setPageSize(580, 260);
             headerWizardDialog.open();

@@ -232,9 +232,9 @@ public class MavenJobThread implements Runnable {
      */
     private String mavenDockerBuildGoal() {
         StringBuilder builder = new StringBuilder();
-        builder.append("dockerfile:push")
-        .append(" -Ddockerfile.username=" + authConfiguration.getAuthUsername())
-        .append(" -Ddockerfile.password=" + authConfiguration.getAuthPassword());
+        builder.append("io.fabric8:docker-maven-plugin:push@docker-push")
+        .append(" -Ddockerfile.push.username=" + authConfiguration.getAuthUsername())
+        .append(" -Ddockerfile.push.password=" + authConfiguration.getAuthPassword());
         return builder.toString();
     }
 
